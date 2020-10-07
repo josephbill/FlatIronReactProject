@@ -1,0 +1,186 @@
+BY Joseph Mbugua
+
+MERN STACK PROJECT 
+
+Building a web app with MongoDB Atlas and Google Cloud Platform 
+
+AGENDA
+
+1. Introduction to MERN 
+2. Database Concepts
+3. Getting started with MongoDB Atlas
+4. Creating the backend of the shopping list app
+5. React Introduction
+6. Creating the FrontEnd 
+7. Creating the FrontEnd to the BackEnd
+
+
+Database Concepts 
+
+SQL VS NOSQL (Document based database )
+
+sql (relational)                    NoSql (document based record exists as 1)
+
+Table                               Collection
+Row                                 document
+Index                                Index
+Join                                 $lookup
+Forieng Key                          Reference
+
+
+Steps 
+--------------------------------------------------------------------------------------------------
+PHASE ONE
+
+1. Go to mongodb.com/cloud/atlas
+2. Create an account if u have one login
+3. Upon signing in to mongodb we need to create a place to store our data this is reffered to as a cluster
+4. click new project , give a name , build a cluster , create a new cluster ,select google cloud platform , select the free tier level basically a sandbox with 512MB Storage space
+5. Let the cluster build
+6. Lets configure the security , then we set up a connection , note the tools i.e. mongo shell , mongo compass and connect your application , select connect ur application , this will take u to another screen where u will pick the connection string 
+7. Now lets think of our db at a paper level our application will need to store 
+     - items 
+     - shopper
+   Every item will be assigned to a shopper
+
+8. Now lets code 
+9. Create the project folder i called mine MERN_SHOPPING_LIST
+10. Verify if u have node installed in ur machine by running the command node -v on ur preffered terminal inside ur project folder , if its not installed go to node site and install it 
+11. Next we create the react app using the create-react-app command 
+12. add npx as a prefix to that command so npx create-react-app (name of app) : name in lowercase because of npm naming restrictions
+This will create the default react project and install all dependencies required : npx will help us in that we can use the create react app command without installing react first 
+
+13. Once the react app is setup , cd into this app , 
+
+14. Lets create the backend first , create a new folder called backend inside the react app project 
+
+15. cd into the backend first , the write this command : npm init : to create a json package file
+
+16.  next install express cors mongoose dotenv
+
+     express : light weight web framework for nodejs'
+     cors : cross origin resource sharing : allows ajax requests to skip the normal origin restrictions allowing it to get data from remote services : 
+     mongoose : interact with mongo through node
+     dotenv : loads env varibales to processenv 
+
+     the command  : npm install express cors mongoose dotenv
+
+17. next install nodemon using the command npm install -g nodemon : this is a tool that will enable the node server to update with file changes 
+
+18. lets create the server.js file : Inside the backend folder : create a new file called server.js
+19. inside this file we will require our dependicies , create the express server and port to run it , set up middleware to receive JSON data , also listen to the server
+
+20. Next connect ur mongoDB to the server , require mongoose and intialise the connection to mongodb via mongoose 
+21. create a new file in the backend folder called .env , here we set up our development environment configurations 
+22. fetch the connection string from mongodb atlas.
+
+------------------------------------------------------------------------------------------------------
+PHASE 2. 
+
+1. next we create our database schema (format for the data storage) and we will have two entities the first for the shopping items and the second the shopper list
+2. create a new folder in the backend folder called models and inside it two new files . items.model.js and another one called shoppers.model.js
+
+3. code out shoppers.model.js  to create the user schema and also set validations for the entries , and export this schema to ur mongo connection
+
+4. do the same as in step 3 this time we create the items schema and set the validations to the entries
+
+5. now we add API endpoint routes so that the server can be used for the CRUD applications 
+
+6. inside backend folder create a new folder called routes inside it create a file called items.js and shoppers.js
+
+7. inform the server to use the files that u created , go to server.js require the files and use the files.
+
+8. now code out the route files. in the route files we need to require  express to handle our routes, require the model , create first route to handle requests (get and post) , get to fetch and post to add
+
+9. Note : mongo uses ur ip address to connect , so if u switch from one ip to another, u need to go to mongoDB atlas console and set the new ip
+
+10. now download insomnia or postman and test the routes for adding a shopper and items and the route for fetching the shoppers
+
+11. if the test is successful on insomnia or postman , go to the mongodb atlas console and actually check if the submission were saved in the database -> go to clusters -> select the cluster -> go to the collection tab and check whether document was entered 
+
+12. next step is to have the update and delete routes for our items. 
+
+13. so go to items.js and add the routes for fetching a specific item based on the id  , update an item based on the id and also delete an item based on the id
+
+14. test these new routes in insomia 
+
+
+//now we are done with the backend setup / our crud routes work now we begin the front end 
+
+-----------------------------------------------------------------------------------------------------
+Phase 3
+
+React is a declarative,efficient and flexible library that lets u compose complex ui from small pieces of code.
+
+we use this components to tell react what we need to see on the screen. A component takes in parameters known as props short for property. The syntax used in react code is known as JSX
+
+JSX allows us to also use JavaScript methods by placing them between braces 
+
+we already created the react app , now go to the public directory and select the index.html file
+
+incase u do not have these folders and file u will need to uninstall the package using npm uninstall -g create-react-app to ensure that npx always uses the latest version. 
+
+then use this || where create-react-app || to check if u have any react package .
+
+now u can use npx create-react-app <name of app> and get all templates
+
+1. in the index.html : this is the default landing page when u start ur react app : note the div with id root : this is the div that will load our view ((if u check code in src -> index.js))  : change the title of this page to suit your application
+
+2. go into src -> index.js and clear out these files because we will not be using them. clear the import for index.css and service workers. 
+
+3. go to app.js : that is the file where we will write our components : 
+   to start a react app using the terminal on a new tab or window , cd to the project and start the react app by using the command npm start 
+
+   this should run the react on the localhost port 3000 , and what u should see is a react dashboard 
+
+   test the script App.js by making changes to the default view.
+
+4. next up we will introduce bootstrap to our project to make styling easier 
+   open a new terminal tab and write npm install bootstrap and then in app.js import bootstrap.
+
+5. next we set up the react router through a command in a new terminal or tab , : this will help in mapping the different routes to different react components
+       
+       npm install react-router-dom
+
+6. import this to the app.js file  
+7. now lets create a router element
+8. import the components file that u declared in the router element in App.js
+9. inside the src folder create a new folder called components and create the components with this naming convetion i.e. for navbar component it is navbar.component.js
+10. inside this component files we are going to create the elements for our views. 
+      : to update changes on the react app simply go and resave the App.js file
+
+11. next we need to include the constructor classes for our components and , next in the constructor create what we call states -> this states should be similar to the mongo schema for ur database : states is basically how u create variables in react. example code in create-item.component.js
+
+12. next we write the methods that will map data to the states : inorder to do that we use the setState method 
+ we are going to have forms which will aid us to capture users input therefore we need to set up the methods to capture the different inputs.
+ also write a method to support the submit action from the form.
+
+ 13. now bind this methods to the specific class 
+ 14. we set up an array for the user [] in the create-item.component.js class, this array is supposed to store our created shoppers but since we do not have that yet at this point we are going to create the users in a hard coded format using a react lifecycle method known as componentDidMount() - lifecycle methods are simply built in methods that react calls during different states of the application - the method in used  will be called before anything is loaded on the page.
+
+ 15. now we add the form code : also we add a datepicker library using the method in terminal 
+         npm install react-datepicker
+
+ 16. test this view and check whether data is logged to the console 
+
+17. proceed and create the create-user component here we save the shoppers 
+    test this view and check whether data is logged to the console 
+
+18. now we connect our frontend to our backend system by making the submission hit a http request to the backend routes : to do that we will require a library known as axios 
+    to install using terminal 
+
+      npm install axios
+
+19. now submit data in the create shopper and item component to the database by first requiring axios in the file the setting the method when the submit button is clicked 
+
+20. now we complete the get shopping log data ,for our homepage 
+    in the shopping-list component import axios and link. here we will also have a delete item link 
+    also create a constructor function to get the list of items 
+
+21. write the delete method it should take the id as the parameter
+    create a functional component to return the view for delete and edit : a functional component is different from a class component in that it does not have states and lifecycle methods
+
+    the functional component will have the controls for edit and delete 
+
+22. create the component for the edit-shopping items class : same as create shopping item , except add params id for the updated record to the routes 
+ 
