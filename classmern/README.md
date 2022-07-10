@@ -12,6 +12,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
+To start MongoDb 
+
+1. In backend folder run : nodemon index.js
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
@@ -66,3 +70,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+Create  a MongoDB and replace connection string to your own cluster in the .env file in backend directory.
+https://www.mongodb.com/basics/clusters/mongodb-cluster-setup
+
+Get guided steps in the steps file in this project.
